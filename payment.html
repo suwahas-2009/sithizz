@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment - SITHIZZ</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.pay-wrap{max-width:650px;margin:30px auto;padding:0 15px}
+.pay-card{background:#1a1a2e;border:1px solid #333;border-radius:18px;padding:28px;text-align:center}
+.pay-card h3{color:#FFD700;font-size:22px;margin:0 0 5px}
+.pay-card .sub{color:#aaa;font-size:14px;margin-bottom:20px}
+.bank-box{background:#0f0f1e;border:1px dashed #FFD700;border-radius:12px;padding:20px;text-align:left;margin-bottom:20px}
+.bank-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #222}
+.bank-row:last-child{border-bottom:none}
+.bank-row span{color:#888;font-size:14px}
+.bank-row b{color:#fff;font-size:16px;letter-spacing:0.5px}
+.copy-btn{background:#FFD700;color:#000;border:none;padding:5px 12px;border-radius:8px;font-weight:800;cursor:pointer;font-size:12px}
+.steps-pay{display:flex;gap:10px;margin:20px 0;text-align:left}
+.steps-pay div{flex:1;background:#0f0f1e;border-radius:12px;padding:14px}
+.steps-pay b{color:#FFD700;display:block;margin-bottom:4px}
+.steps-pay p{color:#bbb;font-size:13px;line-height:1.5;margin:0}
+.send-btn{display:block;background:#25D366;color:#fff;text-decoration:none;padding:15px;border-radius:12px;font-weight:800;font-size:16px;margin-top:10px}
+.warn{color:#FFD700;font-size:13px;margin-top:15px;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo-area"><img src="logo.jpeg" class="logo-img"><span>SITHIZZ</span></div>
+  <nav><a href="index.html">Accounts</a><a href="guide.html">Guide</a><a href="faq.html">FAQ</a><a href="payment.html">Payment</a><a href="contact.html">Contact</a><a href="services.html">Services</a></nav>
+  <a class="chat-btn" href="https://wa.me/94711850298" target="_blank">Chat Now</a>
+</header>
+
+<h2 class="sec-title">💰 Payment Details</h2>
+<p style="text-align:center;color:#aaa;margin-top:-10px">Pay safely via Bank Transfer - Delivery in 10 Minutes</p>
+
+<div class="pay-wrap">
+  <div class="pay-card">
+    <h3>🏦 BOC BANK</h3>
+    <p class="sub">Bank of Ceylon - Homagama Branch</p>
+
+    <div class="bank-box">
+      <div class="bank-row"><span>Account Name</span><b>D.M.S Disanayaka</b></div>
+      <div class="bank-row"><span>Account Number</span><b id="accNo">96563385</b></div>
+      <div class="bank-row"><span>Bank</span><b>BOC Bank</b></div>
+      <div class="bank-row"><span>Branch</span><b>Homagama</b></div>
+    </div>
+
+    <button class="copy-btn" onclick="copyAcc()" style="padding:10px 20px;font-size:14px">📋 COPY ACCOUNT NUMBER</button>
+
+    <div class="steps-pay">
+      <div><b>1. Transfer</b><p>Transfer the exact amount to the account above.</p></div>
+      <div><b>2. Screenshot</b><p>Take a screenshot of the successful payment.</p></div>
+      <div><b>3. Send</b><p>Send it to WhatsApp and get your login.</p></div>
+    </div>
+
+    <a class="send-btn" href="https://wa.me/94711850298?text=Hi%20SITHIZZ%2C%20I%20have%20made%20the%20payment" target="_blank">📩 SEND SCREENSHOT ON WHATSAPP</a>
+
+    <p class="warn">⚠️ Please do NOT send money to any other account number.<br>Always confirm from this page or WhatsApp only.</p>
+  </div>
+</div>
+
+<script>
+function copyAcc(){
+  let no = document.getElementById('accNo').innerText;
+  navigator.clipboard.writeText(no);
+  alert('Account Number Copied: ' + no);
+}
+</script>
+
+<div class="watermark">Made by SITHIZZ 🔥</div>
+</body>
+</html>

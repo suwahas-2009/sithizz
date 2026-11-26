@@ -1,0 +1,68 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{
+  background: #0a0a14;
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(255,215,0,0.12) 0%, transparent 40%),
+    radial-gradient(circle at 90% 20%, rgba(0,120,255,0.18) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(255,0,0,0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a14 0%, #0f0f1e 50%, #0a0a14 100%);
+  background-attachment: fixed;
+  color:#fff;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* Cards walata glass effect ekak */
+.card, .guide-card, .faq-item, .pay-card, .c-card{
+  background: rgba(26,26,46,0.85) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,215,0,0.15) !important;
+}
+
+/* Header eka lassana karanna */
+header{
+  background: rgba(10,10,20,0.9) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,215,0,0.25);
+}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#111;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:10px}
+.logo-area{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;letter-spacing:1px}
+.logo-img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #FFD700}
+nav a{color:#ccc;text-decoration:none;margin:0 10px;font-size:14px}
+.chat-btn,.banner-text a,.pay-box a,.admin-wrap button{background:#FFD700;color:#000;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+.banner{position:relative;height:420px;overflow:hidden}
+.banner img{width:100%;height:100%;object-fit:cover}
+.banner-text{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:rgba(0,0,0,.45);padding:20px}
+.banner-text h1{font-size:38px;color:#FFD700}
+.banner-text p{margin:10px 0 18px}
+.search-box{display:flex;gap:10px;justify-content:center;padding:18px;flex-wrap:wrap}
+.search-box input,.search-box select,.admin-wrap input,.admin-wrap textarea{padding:11px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;width:220px}
+.sec-title{text-align:center;margin:25px 0 15px;color:#FFD700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:0 20px 20px}
+.card{background:#161616;border-radius:14px;overflow:hidden;border:1px solid #222}
+.card img{width:100%;height:180px;object-fit:cover}
+.card-body{padding:14px}.price{color:#FFD700;font-size:20px;font-weight:800;margin:6px 0}
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}.avail{background:#00e676;color:#000}.sold{background:#ff1744}
+.card-body a{display:block;text-align:center;background:#25D366;color:#000;padding:10px;border-radius:8px;text-decoration:none;font-weight:700;margin-top:10px}
+.steps{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:0 20px}.steps div{background:#161616;padding:18px;border-radius:12px;width:200px;text-align:center}
+.pay-box,.admin-wrap{background:#161616;max-width:600px;margin:0 auto;padding:20px;border-radius:12px;text-align:center;line-height:1.9}
+#faq,#contact{max-width:700px;margin:0 auto;padding:0 20px;line-height:2}
+footer{text-align:center;padding:20px;color:#777;font-size:13px}
+.admin-wrap{max-width:800px;margin:20px auto}.admin-wrap input,.admin-wrap textarea{width:100%;margin:6px 0}
+.admin-card{background:#222;padding:14px;border-radius:10px;margin:10px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.admin-card button{padding:8px 12px}
+@media(max-width:600px){.banner{height:280px}.banner-text h1{font-size:24px}}
+
+.services-title{
+  text-align:center;
+  font-size:52px;
+  font-weight:900;
+  letter-spacing:5px;
+  background: linear-gradient(90deg, #FFD700, #fff, #FFD700, #ff8800);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow: 0 0 30px rgba(255,215,0,0.5);
+  margin:25px 0 5px;
+}
