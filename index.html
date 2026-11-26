@@ -4,7 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SITHIZZ ACCOUNT STORE - Premium Free Fire Accounts</title>
-<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0b0b12;color:#fff}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#11111c;flex-wrap:wrap;gap:10px}
+.logo-area{display:flex;align-items:center;gap:8px;font-weight:900;font-size:22px;letter-spacing:1px}
+.logo-img{width:38px;height:38px;border-radius:50%;object-fit:cover}
+nav{display:flex;gap:12px;flex-wrap:wrap}
+nav a{color:#ddd;text-decoration:none;font-size:14px}
+.chat-btn{background:#25d366;color:#fff;padding:8px 16px;border-radius:20px;text-decoration:none;font-weight:700}
+.banner{position:relative;height:260px;overflow:hidden}
+.banner img{width:100%;height:100%;object-fit:cover;opacity:.6}
+.banner-text{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px}
+.banner-text h1{font-size:28px;line-height:1.2}
+.banner-text p{margin:10px 0;color:#ddd}
+.banner-text a{background:#ffcc00;color:#000;padding:10px 20px;border-radius:20px;text-decoration:none;font-weight:800}
+.search-box{display:flex;gap:8px;padding:14px;flex-wrap:wrap;background:#151524}
+.search-box input,.search-box select{flex:1;min-width:140px;padding:10px;border-radius:8px;border:0;background:#fff;color:#000}
+.sec-title{text-align:center;padding:18px 0 5px;font-size:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;padding:16px}
+.card{background:#1a1a2b;border-radius:14px;overflow:hidden;border:1px solid #2a2a45}
+.card img{width:100%;height:170px;object-fit:cover;background:#222}
+.card-body{padding:12px}
+.card-body h3{font-size:17px;margin-bottom:6px}
+.price{color:#ffcc00;font-weight:900;font-size:18px;margin:6px 0}
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.Available{background:#1fae5f}.Sold{background:#e63946}
+.buy{display:block;text-align:center;background:#25d366;color:#fff;padding:9px;border-radius:8px;text-decoration:none;margin-top:10px;font-weight:700}
+footer{text-align:center;padding:16px;color:#999;font-size:13px}
+.admin-btn{position:fixed;bottom:16px;right:16px;background:#333;color:#fff;border:0;padding:10px 14px;border-radius:20px}
+#adminPanel{display:none;background:#151524;margin:12px;padding:14px;border-radius:12px}
+#adminPanel input,#adminPanel select{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:0}
+#adminPanel button{padding:10px 14px;border:0;border-radius:8px;background:#ffcc00;font-weight:800;margin-top:6px}
+.del{background:#e63946!important;color:#fff!important;margin-left:6px}
+</style>
 </head>
 <body>
 <header>
@@ -18,7 +53,7 @@
   <div class="banner-text">
     <h1>PREMIUM FREE FIRE ACCOUNTS</h1>
     <p>Trusted Seller in Sri Lanka - Fast Delivery - 100% Safe</p>
-    <a href="https://wa.me/94711850298?text=Hi%20SITHIZZ%2C%20I%20want%20to%20buy%20an%20account">Buy now </a>
+    <a href="https://wa.me/94711850298?text=Hi%20SITHIZZ%2C%20I%20want%20to%20buy%20an%20account">Buy now</a>
   </div>
 </section>
 
@@ -29,9 +64,108 @@
   <select id="levelFilter" onchange="render()"><option value="all">All Levels</option><option value="25-50">25-50</option><option value="50-60">50-60</option><option value="60-70">60-70</option><option value="70-80">70-80</option><option value="80p">80+</option></select>
 </div>
 
-<section id="accounts"><h2 class="sec-title">Available Accounts</h2><div id="grid" class="grid"></div></section>
+<div id="adminPanel">
+  <h3>Admin - Add Account</h3>
+  <input id="aTitle" placeholder="Title - Ex: LV 75 Full Bundle">
+  <input id="aLevel" type="number" placeholder="Level - Ex: 75">
+  <input id="aPrice" type="number" placeholder="Price - Ex: 15000">
+  <input id="aImg" placeholder="Image Link - Ex: https://... or acc1.jpeg">
+  <select id="aStatus"><option>Available</option><option>Sold</option></select>
+  <button onclick="addAccount()">Add Account to Firebase</button>
+  <p style="font-size:12px;color:#aaa;margin-top:6px">Add කරපු ගමන් හැමෝගෙම Phone එකේම පෙන්නනවා.</p>
+</div>
 
+<section id="accounts"><h2 class="sec-title">Available Accounts</h2><div id="grid" class="grid"></div></section>
 <footer>© 2026 SITHIZZ ACCOUNT STORE - All Rights Reserved</footer>
-<script src="app.js"></script>
+<button class="admin-btn" onclick="openAdmin()">Admin</button>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDvgV4Q3wlb8DiATcZJRIbm1CQYZK1aOJY",
+  authDomain: "sithizz.firebaseapp.com",
+  projectId: "sithizz",
+  storageBucket: "sithizz.firebasestorage.app",
+  messagingSenderId: "747893994939",
+  appId: "1:747893994939:web:041904b2de8aca14b3809e"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+let allAccounts = [];
+let isAdmin = false;
+
+function openAdmin(){
+  const pass = prompt("Admin Password:");
+  if(pass === "sithizz123"){
+    isAdmin = true;
+    document.getElementById('adminPanel').style.display='block';
+    alert("Admin On - දැන් Account Add කරන්න පුළුවන්");
+    render();
+  } else { alert("Wrong Password"); }
+}
+
+async function addAccount(){
+  const title = document.getElementById('aTitle').value.trim();
+  const level = Number(document.getElementById('aLevel').value);
+  const price = Number(document.getElementById('aPrice').value);
+  const img = document.getElementById('aImg').value.trim() || "banner.jpeg";
+  const status = document.getElementById('aStatus').value;
+  if(!title || !level || !price){ alert("Title, Level, Price ඔක්කොම දාන්න"); return; }
+  await db.collection("accounts").add({title, level, price, img, status, createdAt: Date.now()});
+  document.getElementById('aTitle').value=""; document.getElementById('aLevel').value=""; document.getElementById('aPrice').value=""; document.getElementById('aImg').value="";
+  alert("Added! හැමෝටම පෙන්නනවා");
+}
+
+async function deleteAccount(id){
+  if(!confirm("Delete කරන්නද?")) return;
+  await db.collection("accounts").doc(id).delete();
+}
+async function toggleSold(id, current){
+  await db.collection("accounts").doc(id).update({status: current==="Available" ? "Sold" : "Available"});
+}
+
+db.collection("accounts").orderBy("createdAt","desc").onSnapshot((snap)=>{
+  allAccounts = [];
+  snap.forEach(d=> allAccounts.push({id:d.id, ...d.data()}));
+  render();
+});
+
+function render(){
+  const q = (document.getElementById('searchInput').value||"").toLowerCase();
+  const sf = document.getElementById('statusFilter').value;
+  const pf = document.getElementById('priceFilter').value;
+  const lf = document.getElementById('levelFilter').value;
+  let list = allAccounts.filter(a=>{
+    if(q && !(a.title+" "+a.level).toLowerCase().includes(q)) return false;
+    if(sf!=="all" && a.status!==sf) return false;
+    if(lf==="25-50" && !(a.level>=25&&a.level<50)) return false;
+    if(lf==="50-60" && !(a.level>=50&&a.level<60)) return false;
+    if(lf==="60-70" && !(a.level>=60&&a.level<70)) return false;
+    if(lf==="70-80" && !(a.level>=70&&a.level<80)) return false;
+    if(lf==="80p" && !(a.level>=80)) return false;
+    if(pf==="u10" && !(a.price<10000)) return false;
+    if(pf==="10-30" && !(a.price>=10000&&a.price<=30000)) return false;
+    if(pf==="30-50" && !(a.price>30000&&a.price<=50000)) return false;
+    if(pf==="50p" && !(a.price>50000)) return false;
+    return true;
+  });
+  if(pf==="low") list.sort((a,b)=>a.price-b.price);
+  if(pf==="high") list.sort((a,b)=>b.price-a.price);
+  const grid = document.getElementById('grid');
+  if(list.length===0){ grid.innerHTML="<p style='text-align:center;padding:20px;color:#aaa'>No accounts yet. Admin එකෙන් Add කරන්න.</p>"; return; }
+  grid.innerHTML = list.map(a=>`
+    <div class="card">
+      <img src="${a.img}">
+      <div class="card-body">
+        <h3>${a.title}</h3>
+        <div>Level: ${a.level}</div>
+        <div class="price">Rs. ${Number(a.price).toLocaleString()}</div>
+        <span class="badge ${a.status}">${a.status}</span>
+        <a class="buy" target="_blank" href="https://wa.me/94711850298?text=${encodeURIComponent("Hi SITHIZZ, I want "+a.title+" - Rs."+a.price)}">Buy on WhatsApp</a>
+        ${isAdmin?`<div style="margin-top:8px"><button onclick="toggleSold('${a.id}','${a.status}')">Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="del" onclick="deleteAccount('${a.id}')">Delete</button></div>`:""}
+      </div>
+    </div>`).join("");
+}
+render();
+</script>
 </body>
 </html>
