@@ -280,7 +280,7 @@ function render(){
         <div>📸 ${getPhotos(a).length} Photos</div>
         <div class="price">Rs. ${Number(a.price).toLocaleString()}</div>
         <span class="badge ${a.status}">${a.status}</span>
-        <a class="buy" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94711850298?text=${encodeURIComponent("Hi SITHIZZ, I want "+a.title+" - Rs."+a.price)}">Buy on WhatsApp</a>
+      
         ${isAdmin?`<div style="margin-top:8px"><button onclick="event.stopPropagation();toggleSold('${a.id}','${a.status}',event)">Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="del" onclick="event.stopPropagation();deleteAccount('${a.id}',event)">Delete</button></div>`:""}
       </div>
     </div>`).join("");
