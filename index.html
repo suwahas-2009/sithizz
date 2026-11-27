@@ -288,11 +288,18 @@ db.collection("accounts").orderBy("createdAt","desc").onSnapshot((snap)=>{
   const openId = location.hash.replace("#","");
   if(openId){ const a = allAccounts.find(x=>x.id===openId); if(a) showDetail(a.id, true); }
 }, (err)=>{ console.log("Firebase Error", err); });
+
 function changeMainPhoto(index, el){
   document.getElementById('mainPhoto').src = currentDetailPhotos[index];
   document.querySelectorAll('.gallery img').forEach(i=>i.classList.remove('active'));
   if(el) el.classList.add('active');
+  // අලුතින් එකතු කරපු ටික - New Tab එකටත් අලුත් Photo එක යවන්න
+  const btn = document.getElementById('newTabBtn');
+  if(btn) btn.href = currentDetailPhotos[index];
+  const wrap = document.querySelector('.main-img-wrap');
+  if(wrap) wrap.onclick = function(){ openPhoto(currentDetailPhotos[index]); };
 }
+
 function showDetail(id, fromHash){
   const a = allAccounts.find(x=>x.id===id); if(!a) return;
   if(!fromHash) location.hash = id;
@@ -305,11 +312,12 @@ function showDetail(id, fromHash){
   const photos = getPhotos(a);
   currentDetailPhotos = photos;
   document.getElementById('detailContent').innerHTML = `
-    <div class="main-img-wrap" onclick="openPhoto('${photos[0]}')">
-      <img id="mainPhoto" class="main-img" src="${photos[0]}" style="width:100%;display:block">
-      <div class="wm-main"><span>SITHIZZ</span></div>
-      <div class="wm-bottom">SITHIZZ STORE</div>
-    </div>
+    <div class="main-img-wrap" onclick="openPhoto(document.getElementById('mainPhoto').src)">
+     <img id="mainPhoto" class="main-img" src="${photos[0]}" style="width:100%;display:block">
+   <div class="wm-main"><span>SITHIZZ</span></div>
+     <div class="wm-bottom">SITHIZZ STORE</div>
+   </div>
+    <a id="newTabBtn" href="${photos[0]}" target="_blank" onclick="event.stopPropagation()" style="display:block;text-align:center;background:#333;color:#fff;padding:10px;border-radius:10px;text-decoration:none;margin-top:8px;font-weight:700">🔍 Open Image in New Tab</a>
     <div class="gallery">${photos.map((p,i)=>`<div class="g-item"><img src="${p}" class="${i===0?'active':''}" onclick="changeMainPhoto(${i},this)"><span class="wm-small">SITHIZZ</span></div>`).join("")}</div>
     <div class="detail-box">
       <span class="badge ${a.status}">${a.status}</span>
