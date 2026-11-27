@@ -38,7 +38,9 @@ footer{text-align:center;padding:16px;color:#999;font-size:13px}
 #adminPanel{display:none;background:#151524;margin:12px;padding:14px;border-radius:12px}
 #adminPanel input,#adminPanel select,#adminPanel textarea{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:0}
 #adminPanel button{padding:10px 14px;border:0;border-radius:8px;background:#ffcc00;font-weight:800;margin-top:6px}
-.del{background:#e63946!important;color:#fff!important;margin-left:6px}
+.admin-actions{display:flex;gap:8px;margin-top:10px}
+.btn-sold{flex:1;background:#ffcc00;color:#000;border:0;padding:10px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer}
+.btn-del{flex:1;background:#e63946;color:#fff;border:0;padding:10px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer}
 #detailPage{display:none;padding:16px;max-width:600px;margin:0 auto;padding-bottom:90px}
 #detailPage img.main-img{width:100%;border-radius:14px;max-height:380px;object-fit:cover;background:#222}
 .back{background:#333;color:#fff;border:0;padding:9px 16px;border-radius:20px;margin-bottom:12px}
@@ -238,7 +240,7 @@ function showDetail(id, fromHash){
       <div class="big-price">Rs. ${Number(a.price).toLocaleString()}</div>
       <p><b>Details:</b><br>${a.desc ? a.desc.replace(/\n/g,"<br>") : "Premium Free Fire Account - Ask Full Details On WhatsApp."}</p>
       <p style="font-size:13px;color:#aaa">✅ Trusted Seller<br>✅ Fast Delivery<br>✅ 100% Safe - Login Details Provided</p>
-      ${isAdmin?`<div style="margin-top:8px"><button onclick="toggleSold('${a.id}','${a.status}',event)">Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="del" onclick="deleteAccount('${a.id}',event)">Delete</button></div>`:""}
+      ${isAdmin?`<div class="admin-actions"><button class="btn-sold" onclick="toggleSold('${a.id}','${a.status}',event)">✅ Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="btn-del" onclick="deleteAccount('${a.id}',event)">🗑️ Delete</button></div>`:""}
     </div>`;
 }
 function goBack(){
@@ -281,7 +283,7 @@ function render(){
         <div class="price">Rs. ${Number(a.price).toLocaleString()}</div>
         <span class="badge ${a.status}">${a.status}</span>
       
-        ${isAdmin?`<div style="margin-top:8px"><button onclick="event.stopPropagation();toggleSold('${a.id}','${a.status}',event)">Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="del" onclick="event.stopPropagation();deleteAccount('${a.id}',event)">Delete</button></div>`:""}
+        ${isAdmin?`<div class="admin-actions"><button class="btn-sold" onclick="toggleSold('${a.id}','${a.status}',event)">✅ Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="btn-del" onclick="deleteAccount('${a.id}',event)">🗑️ Delete</button></div>`:""}
       </div>
     </div>`).join("");
 }
