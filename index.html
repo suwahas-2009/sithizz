@@ -25,7 +25,7 @@ nav a{color:#ddd;text-decoration:none;font-size:14px}
 .search-box input,.search-box select{flex:1;min-width:140px;padding:10px;border-radius:8px;border:0;background:#fff;color:#000}
 .sec-title{text-align:center;padding:18px 0 5px;font-size:24px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;padding:16px}
-.card{background:#1a1a2b;border-radius:14px;overflow:hidden;border:1px solid #2a2a45}
+.card{background:#1a1a2b;border-radius:14px;overflow:hidden;border:1px solid #2a2a45;cursor:pointer}
 .card img{width:100%;height:170px;object-fit:cover;background:#222}
 .card-body{padding:12px}
 .card-body h3{font-size:17px;margin-bottom:6px}
@@ -34,11 +34,27 @@ nav a{color:#ddd;text-decoration:none;font-size:14px}
 .Available{background:#1fae5f}.Sold{background:#e63946}
 .buy{display:block;text-align:center;background:#25d366;color:#fff;padding:9px;border-radius:8px;text-decoration:none;margin-top:10px;font-weight:700}
 footer{text-align:center;padding:16px;color:#999;font-size:13px}
-.admin-btn{position:fixed;bottom:16px;right:16px;background:#333;color:#fff;border:0;padding:10px 14px;border-radius:20px}
+.admin-btn{position:fixed;bottom:76px;right:16px;background:#333;color:#fff;border:0;padding:10px 14px;border-radius:20px;z-index:20}
 #adminPanel{display:none;background:#151524;margin:12px;padding:14px;border-radius:12px}
-#adminPanel input,#adminPanel select{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:0}
+#adminPanel input,#adminPanel select,#adminPanel textarea{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:0}
 #adminPanel button{padding:10px 14px;border:0;border-radius:8px;background:#ffcc00;font-weight:800;margin-top:6px}
 .del{background:#e63946!important;color:#fff!important;margin-left:6px}
+#detailPage{display:none;padding:16px;max-width:600px;margin:0 auto;padding-bottom:90px}
+#detailPage img.main-img{width:100%;border-radius:14px;max-height:380px;object-fit:cover;background:#222}
+.back{background:#333;color:#fff;border:0;padding:9px 16px;border-radius:20px;margin-bottom:12px}
+.detail-box{background:#1a1a2b;padding:16px;border-radius:14px;margin-top:12px}
+.detail-box h2{font-size:22px;margin-bottom:10px}
+.detail-box p{color:#ddd;line-height:1.6;margin:6px 0}
+.big-price{color:#ffcc00;font-size:24px;font-weight:900;margin:10px 0}
+.gallery{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px}
+.gallery img{width:80px;height:80px;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid transparent;flex-shrink:0}
+.gallery img.active{border-color:#ffcc00}
+#preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+#preview img{width:70px;height:70px;object-fit:cover;border-radius:8px}
+#orderBar{display:none;position:fixed;bottom:0;left:0;right:0;background:#11111c;padding:12px;border-top:1px solid #333;z-index:30}
+#orderBar a{display:block;text-align:center;background:#25d366;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:900;font-size:17px}
+#orderBar small{display:block;text-align:center;color:#aaa;font-size:12px;margin-top:5px}
+.file-label{display:block;background:#222;color:#fff;padding:10px;border-radius:8px;text-align:center;margin:5px 0;cursor:pointer}
 </style>
 </head>
 <body>
@@ -48,13 +64,13 @@ footer{text-align:center;padding:16px;color:#999;font-size:13px}
   <a class="chat-btn" href="https://wa.me/94711850298?text=Hi%20SITHIZZ%2C%20I%20want%20to%20buy%20an%20account" target="_blank">Chat Now</a>
 </header>
 
+<div id="mainPage">
 <section class="banner">
   <img src="banner.jpeg">
   <div class="banner-text">
     <h1>PREMIUM FREE FIRE ACCOUNTS</h1>
     <p>Trusted Seller in Sri Lanka - Fast Delivery - 100% Safe</p>
-    <a href="https://wa.me/94711850298?text=Hi%20SITHIZZ%2C%20I%20want%20to%20buy%20an%20account">Buy now</a>
-  </div>
+    <nav><a href="https://wa.me/94711850298?text=Hi%20SITHIZZ%2C%20I%20want%20to%20buy%20an%20account">Buy now</a></nav> 
 </section>
 
 <div class="search-box">
@@ -69,13 +85,31 @@ footer{text-align:center;padding:16px;color:#999;font-size:13px}
   <input id="aTitle" placeholder="Title - Ex: LV 75 Full Bundle">
   <input id="aLevel" type="number" placeholder="Level - Ex: 75">
   <input id="aPrice" type="number" placeholder="Price - Ex: 15000">
-  <input id="aImg" placeholder="Image Link - Ex: https://... or acc1.jpeg">
+  <label class="file-label">📸 JPG Photos Select කරන්න - මෙතන ඔබන්න (Photo ගානක්ම පුළුවන්)
+    <input id="aFiles" type="file" accept="image/*" multiple style="display:none" onchange="previewFiles()">
+  </label>
+  <div id="preview"></div>
+  <p style="font-size:12px;color:#aaa">wait one minute.</p>
+  <textarea id="aImgs" rows="3" placeholder="නැත්නම් Photo Link / JPG නම දාන්න - එක Line එකට එකක්&#10;Ex: acc1.jpeg"></textarea>
+  <textarea id="aDesc" rows="3" placeholder="විස්තර - Ex: Evo Guns 5, Bundle 20, Diamond 5000..."></textarea>
   <select id="aStatus"><option>Available</option><option>Sold</option></select>
   <button onclick="addAccount()">Add Account to Firebase</button>
-  <p style="font-size:12px;color:#aaa;margin-top:6px">Add කරපු ගමන් හැමෝගෙම Phone එකේම පෙන්නනවා.</p>
+  <p style="font-size:12px;color:#aaa;margin-top:6px">wait.</p>
 </div>
 
 <section id="accounts"><h2 class="sec-title">Available Accounts</h2><div id="grid" class="grid"></div></section>
+</div>
+
+<div id="detailPage">
+  <button class="back" onclick="goBack()">← Back to Accounts</button>
+  <div id="detailContent"></div>
+</div>
+
+<div id="orderBar">
+  <a id="orderLink" target="_blank" href="#">🟢 ORDER NOW ON WHATSAPP</a>
+  <small id="orderText"></small>
+</div>
+
 <footer>© 2026 SITHIZZ ACCOUNT STORE - All Rights Reserved</footer>
 <button class="admin-btn" onclick="openAdmin()">Admin</button>
 
@@ -92,43 +126,123 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 let allAccounts = [];
 let isAdmin = false;
-
+function getPhotos(a){
+  if(a.imgs && a.imgs.length) return a.imgs;
+  if(a.img) return [a.img];
+  return ["banner.jpeg"];
+}
 function openAdmin(){
   const pass = prompt("Admin Password:");
   if(pass === "sithizz123"){
     isAdmin = true;
     document.getElementById('adminPanel').style.display='block';
-    alert("Admin On - දැන් Account Add කරන්න පුළුවන්");
+    alert("Admin On ");
     render();
   } else { alert("Wrong Password"); }
 }
-
+function previewFiles(){
+  const files = document.getElementById('aFiles').files;
+  const pre = document.getElementById('preview');
+  pre.innerHTML = "";
+  for(const f of files){
+    const r = new FileReader();
+    r.onload = e=>{ pre.innerHTML += `<img src="${e.target.result}">`; };
+    r.readAsDataURL(f);
+  }
+}
+function compressImage(file){
+  return new Promise((resolve)=>{
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const img = new Image();
+      img.onload = ()=>{
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        const max = 1000;
+        if(w > max){ h = h * max / w; w = max; }
+        if(h > max){ w = w * max / h; h = max; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg', 0.7));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 async function addAccount(){
   const title = document.getElementById('aTitle').value.trim();
   const level = Number(document.getElementById('aLevel').value);
   const price = Number(document.getElementById('aPrice').value);
-  const img = document.getElementById('aImg').value.trim() || "banner.jpeg";
+  const desc = document.getElementById('aDesc').value.trim();
   const status = document.getElementById('aStatus').value;
   if(!title || !level || !price){ alert("Title, Level, Price ඔක්කොම දාන්න"); return; }
-  await db.collection("accounts").add({title, level, price, img, status, createdAt: Date.now()});
-  document.getElementById('aTitle').value=""; document.getElementById('aLevel').value=""; document.getElementById('aPrice').value=""; document.getElementById('aImg').value="";
-  alert("Added! හැමෝටම පෙන්නනවා");
+  let imgs = document.getElementById('aImgs').value.split("\n").map(s=>s.trim()).filter(s=>s);
+  const files = document.getElementById('aFiles').files;
+  if(files.length > 0){
+    alert("Photos Upload ... ");
+    imgs = [];
+    for(const f of files){ imgs.push(await compressImage(f)); }
+  }
+  if(!imgs.length) imgs = ["banner.jpeg"];
+  const img = imgs[0];
+  await db.collection("accounts").add({title, level, price, img, imgs, desc, status, createdAt: Date.now()});
+  document.getElementById('aTitle').value=""; document.getElementById('aLevel').value=""; document.getElementById('aPrice').value=""; document.getElementById('aImgs').value=""; document.getElementById('aDesc').value=""; document.getElementById('aFiles').value=""; document.getElementById('preview').innerHTML="";
+  alert("Added! ");
 }
-
-async function deleteAccount(id){
+async function deleteAccount(id, e){
+  if(e) e.stopPropagation();
   if(!confirm("Delete කරන්නද?")) return;
   await db.collection("accounts").doc(id).delete();
+  goBack();
 }
-async function toggleSold(id, current){
+async function toggleSold(id, current, e){
+  if(e) e.stopPropagation();
   await db.collection("accounts").doc(id).update({status: current==="Available" ? "Sold" : "Available"});
 }
-
 db.collection("accounts").orderBy("createdAt","desc").onSnapshot((snap)=>{
   allAccounts = [];
   snap.forEach(d=> allAccounts.push({id:d.id, ...d.data()}));
   render();
+  const openId = location.hash.replace("#","");
+  if(openId){ const a = allAccounts.find(x=>x.id===openId); if(a) showDetail(a.id, true); }
 });
-
+function changeMainPhoto(src, el){
+  document.getElementById('mainPhoto').src = src;
+  document.querySelectorAll('.gallery img').forEach(i=>i.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+function showDetail(id, fromHash){
+  const a = allAccounts.find(x=>x.id===id); if(!a) return;
+  if(!fromHash) location.hash = id;
+  document.getElementById('mainPage').style.display='none';
+  document.getElementById('detailPage').style.display='block';
+  document.getElementById('orderBar').style.display='block';
+  document.getElementById('orderLink').href = "https://wa.me/94711850298?text=" + encodeURIComponent("Hi SITHIZZ, I want to ORDER NOW - "+a.title+" - Rs."+a.price+" - Level "+a.level);
+  document.getElementById('orderText').innerText = a.title + " - Rs. " + Number(a.price).toLocaleString();
+  window.scrollTo(0,0);
+  const photos = getPhotos(a);
+  document.getElementById('detailContent').innerHTML = `
+    <img id="mainPhoto" class="main-img" src="${photos[0]}">
+    <div class="gallery">${photos.map((p,i)=>`<img src="${p}" class="${i===0?'active':''}" onclick="changeMainPhoto('${p}',this)">`).join("")}</div>
+    <div class="detail-box">
+      <span class="badge ${a.status}">${a.status}</span>
+      <h2>${a.title}</h2>
+      <p><b>Level:</b> ${a.level}</p>
+      <p><b>Account ID:</b> ${a.id.slice(0,8)} &nbsp;|&nbsp; <b>Photos:</b> ${photos.length}</p>
+      <div class="big-price">Rs. ${Number(a.price).toLocaleString()}</div>
+      <p><b>Details:</b><br>${a.desc ? a.desc.replace(/\n/g,"<br>") : "Premium Free Fire Account - Full Details WhatsApp එකෙන් අහන්න."}</p>
+      <p style="font-size:13px;color:#aaa">✅ Trusted Seller<br>✅ Fast Delivery<br>✅ 100% Safe - Login Details එක්කම දෙනවා</p>
+      ${isAdmin?`<div style="margin-top:8px"><button onclick="toggleSold('${a.id}','${a.status}',event)">Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="del" onclick="deleteAccount('${a.id}',event)">Delete</button></div>`:""}
+    </div>`;
+}
+function goBack(){
+  history.pushState("", document.title, window.location.pathname + window.location.search);
+  document.getElementById('detailPage').style.display='none';
+  document.getElementById('orderBar').style.display='none';
+  document.getElementById('mainPage').style.display='block';
+  window.scrollTo(0,0);
+}
 function render(){
   const q = (document.getElementById('searchInput').value||"").toLowerCase();
   const sf = document.getElementById('statusFilter').value;
@@ -151,17 +265,18 @@ function render(){
   if(pf==="low") list.sort((a,b)=>a.price-b.price);
   if(pf==="high") list.sort((a,b)=>b.price-a.price);
   const grid = document.getElementById('grid');
-  if(list.length===0){ grid.innerHTML="<p style='text-align:center;padding:20px;color:#aaa'>No accounts yet. Admin එකෙන් Add කරන්න.</p>"; return; }
+  if(list.length===0){ grid.innerHTML="<p style='text-align:center;padding:20px;color:#aaa'>No accounts yet..</p>"; return; }
   grid.innerHTML = list.map(a=>`
-    <div class="card">
-      <img src="${a.img}">
+    <div class="card" onclick="showDetail('${a.id}')">
+      <img src="${getPhotos(a)[0]}">
       <div class="card-body">
         <h3>${a.title}</h3>
-        <div>Level: ${a.level}</div>
+        <div>Level: ${a.level} - Tap to View Details →</div>
+        <div>📸 ${getPhotos(a).length} Photos</div>
         <div class="price">Rs. ${Number(a.price).toLocaleString()}</div>
         <span class="badge ${a.status}">${a.status}</span>
-        <a class="buy" target="_blank" href="https://wa.me/94711850298?text=${encodeURIComponent("Hi SITHIZZ, I want "+a.title+" - Rs."+a.price)}">Buy on WhatsApp</a>
-        ${isAdmin?`<div style="margin-top:8px"><button onclick="toggleSold('${a.id}','${a.status}')">Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="del" onclick="deleteAccount('${a.id}')">Delete</button></div>`:""}
+        <a class="buy" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94711850298?text=${encodeURIComponent("Hi SITHIZZ, I want "+a.title+" - Rs."+a.price)}">Buy on WhatsApp</a>
+        ${isAdmin?`<div style="margin-top:8px"><button onclick="event.stopPropagation();toggleSold('${a.id}','${a.status}',event)">Mark ${a.status==="Available"?"Sold":"Available"}</button><button class="del" onclick="event.stopPropagation();deleteAccount('${a.id}',event)">Delete</button></div>`:""}
       </div>
     </div>`).join("");
 }
