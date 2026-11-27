@@ -222,7 +222,6 @@ function showDetail(id, fromHash){
   document.getElementById('mainPage').style.display='none';
   document.getElementById('detailPage').style.display='block';
   document.getElementById('orderBar').style.display='block';
-  document.getElementById('orderLink').href = "https://wa.me/94711850298?text=" + encodeURIComponent("Hi SITHIZZ, I want to ORDER NOW - "+a.title+" - Rs."+a.price+" - Level "+a.level);
   document.getElementById('orderText').innerText = a.title + " - Rs. " + Number(a.price).toLocaleString();
   window.scrollTo(0,0);
   const photos = getPhotos(a);
