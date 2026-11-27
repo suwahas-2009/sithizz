@@ -241,7 +241,7 @@ function showDetail(id, fromHash){
     </div>
     <div style="position:absolute;bottom:8px;right:10px;color:rgba(255,255,255,0.35);font-size:11px;font-weight:700;pointer-events:none">SITHIZZ STORE</div>
     </div>
-    <div class="gallery">${photos.map((p,i)=>`<img src="${p}" class="${i===0?'active':''}" onclick="changeMainPhoto(${i},this)">`).join("")}</div>
+    <div class="gallery">${photos.map((p,i)=>`<div style="position:relative;display:inline-block"><img src="${p}" class="${i===0?'active':''}" onclick="changeMainPhoto(${i},this)"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);color:rgba(255,255,255,0.25);font-size:10px;font-weight:900;pointer-events:none">SITHIZZ</span></div>`).join("")}</div>
     <div class="detail-box">
       <span class="badge ${a.status}">${a.status}</span>
       <h2>${a.title}</h2>
